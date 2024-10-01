@@ -35,7 +35,7 @@ import java.awt.event.ComponentAdapter;
 public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
 
     CardLayout cl;
-    GamePanel gp;
+    Simulation sp;
 
     /**
      * Creates new form FrameForGame
@@ -52,17 +52,17 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
         switchToCard(IntroPanel.CARD_NAME);
 
         //some focus stuff for the game panel to capture key events
-        gp.addComponentListener(new ComponentAdapter() {
+        sp.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(java.awt.event.ComponentEvent e) {
-                gp.requestFocusInWindow();
+                sp.requestFocusInWindow();
             }
         });
     }
 
     private void addPanels() {
-        gp = new GamePanel(this);
-        cardPanel.add(gp,GamePanel.CARD_NAME);
+        sp = new Simulation();
+        cardPanel.add(sp,Simulation.CARD_NAME);
         cardPanel.add(new EndPanel(this),EndPanel.CARD_NAME);
         cardPanel.add(new IntroPanel(this),IntroPanel.CARD_NAME);
         cardPanel.add(new InfoPanel(this),InfoPanel.CARD_NAME);
@@ -80,29 +80,35 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
         cardPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+
+        cardPanel.setPreferredSize(new java.awt.Dimension(1200, 600));
 
         javax.swing.GroupLayout cardPanelLayout = new javax.swing.GroupLayout(cardPanel);
         cardPanel.setLayout(cardPanelLayout);
         cardPanelLayout.setHorizontalGroup(
             cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 1202, Short.MAX_VALUE)
         );
         cardPanelLayout.setVerticalGroup(
             cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 373, Short.MAX_VALUE)
+            .addGap(0, 714, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(cardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(cardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 79, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
         );
 
         pack();
