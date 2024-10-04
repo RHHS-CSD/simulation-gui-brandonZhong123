@@ -59,12 +59,12 @@ public class InfoPanel extends javax.swing.JPanel {
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
-        jTextArea2.setText("Modifications\n- Cells have a 3% chance of catching a virus upon creation\n- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus\n- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  \n   A level 3 virus also has a 50% kill chance and a 10% fade chance\n- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. \n  A level 2 virus also has a 40% kill chance with a 20% fade chance\n- A level 1 virus cannot infect neighbouring cells. \n  A level 1 virus has a 30% kill chance and a 20% fade chance. \n  If a cell dies the virus will go away.");
+        jTextArea2.setText("Modifications\n- Cells have a 3% chance of catching a virus upon every update\n- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus\n- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  \n   A level 3 virus also has a 50% kill chance and a 10% fade chance\n- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. \n  A level 2 virus also has a 40% kill chance with a 20% fade chance\n- A level 1 virus cannot infect neighbouring cells. \n  A level 1 virus has a 30% kill chance and a 20% fade chance. \n  If a cell dies the virus will go away.");
         jScrollPane2.setViewportView(jTextArea2);
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
-        jTextArea3.setText("Buttons\nRandom - Randomly creates a grid\nClear - Clears grid\nUpdate once - Only updates once\nStart - Starts the simulation\nTick Speed Slider - Updates tick speed of simulation\nColor - Updates Color of Simulation");
+        jTextArea3.setText("Buttons\nRandom - Randomly creates a grid\nClear - Clears grid\nUpdate once - Only updates once\nStart - Starts the simulation\nTick Speed Slider - Updates tick speed of simulation\nShow Virus - Shows virus\nEnabel virus - Enables Virus\nColor - Updates Color of Simulation");
         jScrollPane3.setViewportView(jTextArea3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

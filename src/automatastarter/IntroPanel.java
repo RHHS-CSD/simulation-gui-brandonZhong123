@@ -7,21 +7,46 @@ package automatastarter;
 
 import utils.CardSwitcher;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Graphics;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author michael.roy-diclemen
  */
-public class IntroPanel extends javax.swing.JPanel {
+public class IntroPanel extends javax.swing.JPanel implements ActionListener{
         public static final String CARD_NAME = "intro";
     CardSwitcher switcher = null;
+    GameOfLife simulation = new GameOfLife(0, 0, 600, 300, 10);
+    GameOfLife simulation2 = new GameOfLife(900, 0, 600, 300, 10);
     /**
      * Creates new form IntroPanel
      */
+    
+    private Timer t = new Timer(50, this);
     public IntroPanel(CardSwitcher p) {
         initComponents();
         switcher = p;
+        t.start();
+        simulation.createGrid();
+        simulation2.createGrid();
+    }
+    
+    private void update(){
+        simulation.update();
+        simulation2.update();
+    }
+    
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        simulation.drawGrid(g, Color.black);
+        simulation2.drawGrid(g, Color.black);
+    
     }
 
     /**
@@ -103,4 +128,10 @@ public class IntroPanel extends javax.swing.JPanel {
     private javax.swing.JButton infoButton;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
+        update();
+    }
 }

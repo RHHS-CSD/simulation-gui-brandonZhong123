@@ -20,18 +20,24 @@ public class GameOfLife {
     private int width;
     private int height;
     private int tileSize;
+    private int gridX;
+    private int gridY;
+    private boolean updateWithVirus = false;
     
     /**
      * Constructor initializes size of grid
      * @param length length of grid
      * @param width width of grid
      */
-    public GameOfLife (int height, int width, int tileSize){
+    public GameOfLife (int x, int y, int height, int width, int tileSize){
         this.width = width;
         this.height = height;
         this.tileSize = tileSize;
         cellNeighbours = new int[width / tileSize][height / tileSize];
         grid = new int[width / tileSize][height / tileSize];
+        diseasedCells = new int[width / tileSize][height / tileSize];
+        gridX = x;
+        gridY = y;
     }
     
     /**
@@ -44,24 +50,24 @@ public class GameOfLife {
 
     private int determineNeighbours(int row, int col) {
         int neighbours = 0;
-//
-//        boolean infected = false;
-//        int virus = 0;
-        // If cell has a disease cell is infected
-//        if (diseasedCells[row][col] != 0) {
-//            infected = true;
-//            // Level of virus is the cell
-//            //virus = diseasedCells[row][col];
-//        }
+
+        boolean infected = false;
+        int virus = 0;
+        //If cell has a disease cell is infected
+        if (diseasedCells[row][col] != 0) {
+            infected = true;
+            // Level of virus is the cell
+            virus = diseasedCells[row][col];
+        }
         // If row index is not on the last one
         if (row != grid.length - 1) {
             // If the neighbour to the right is alive
             if (grid[row + 1][col] == 1) {
                 neighbours++;
-                // If cell is infected and neighbour is not infected infect right neighbour
-                //if (infected && diseasedCells[row + 1][col] == 0) {
-                    //infectCells(row + 1, col, virus);
-                //}
+                 //If cell is infected and neighbour is not infected infect right neighbour
+                if (infected && diseasedCells[row + 1][col] == 0) {
+                    infectCells(row + 1, col, virus);
+                }
             }
         }
 
@@ -71,9 +77,9 @@ public class GameOfLife {
             if (grid[row - 1][col] == 1) {
                 neighbours++;
                 // If cell is infected and neighbour is not infected infect left neighbour
-//                if (infected && diseasedCells[row - 1][col] == 0) {
-//                    infectCells(row - 1, col, virus);
-//                }
+                if (infected && diseasedCells[row - 1][col] == 0) {
+                    infectCells(row - 1, col, virus);
+                }
             }
             // If column index is not on the last one
             if (col != grid[0].length - 1) {
@@ -81,9 +87,9 @@ public class GameOfLife {
                 if (grid[row - 1][col + 1] == 1) {
                     neighbours++;
                     // If cell is infected and neighbour is not infected infect diagonally left and down neighbour
-//                    if (infected && diseasedCells[row - 1][col + 1] == 0) {
-//                        infectCells(row - 1, col + 1, virus);
-//                    }
+                    if (infected && diseasedCells[row - 1][col + 1] == 0) {
+                        infectCells(row - 1, col + 1, virus);
+                    }
                 }
             }
         }
@@ -94,9 +100,9 @@ public class GameOfLife {
             if (grid[row][col + 1] == 1) {
                 neighbours++;
                 // If cell is infected and neighbour is not infected infect neighbour below
-//                if (infected && diseasedCells[row][col + 1] == 0) {
-//                    infectCells(row, col + 1, virus);
-//                }
+                if (infected && diseasedCells[row][col + 1] == 0) {
+                    infectCells(row, col + 1, virus);
+                }
             }
         }
 
@@ -106,9 +112,9 @@ public class GameOfLife {
             if (grid[row][col - 1] == 1) {
                 neighbours++;
                 // If cell is infected and neighbour is not infected infect neighbour above
-//                if (infected && diseasedCells[row][col - 1] == 0) {
-//                    infectCells(row, col - 1, virus);
-//                }
+                if (infected && diseasedCells[row][col - 1] == 0) {
+                    infectCells(row, col - 1, virus);
+                }
             }
             // If the row index isn't on the last one
             if (row != grid.length - 1) {
@@ -116,9 +122,9 @@ public class GameOfLife {
                 if (grid[row + 1][col - 1] == 1) {
                     neighbours++;
                     // If cell is infected and neighbour is not infected infect neighbout right and above
-//                    if (infected && diseasedCells[row + 1][col - 1] == 0) {
-//                        infectCells(row + 1, col - 1, virus);
-//                    }
+                    if (infected && diseasedCells[row + 1][col - 1] == 0) {
+                        infectCells(row + 1, col - 1, virus);
+                    }
                 }
             }
         }
@@ -129,9 +135,9 @@ public class GameOfLife {
             if (grid[row - 1][col - 1] == 1) {
                 neighbours++;
                 // If cell is infected and neighbour is not infected infect neighbour left and above
-//                if (infected && diseasedCells[row - 1][col - 1] == 0) {
-//                    infectCells(row - 1, col - 1, virus);
-//                }
+                if (infected && diseasedCells[row - 1][col - 1] == 0) {
+                    infectCells(row - 1, col - 1, virus);
+                }
             }
         }
 
@@ -141,9 +147,9 @@ public class GameOfLife {
             if (grid[row + 1][col + 1] == 1) {
                 neighbours++;
                 // If cell is infected and neighbour is not infected infect neighbour right and below
-//                if (infected && diseasedCells[row + 1][col + 1] == 0) {
-//                    infectCells(row + 1, col + 1, virus);
-//                }
+                if (infected && diseasedCells[row + 1][col + 1] == 0) {
+                    infectCells(row + 1, col + 1, virus);
+                }
             }
         }
 
@@ -189,6 +195,10 @@ public class GameOfLife {
                 }
             }
         }
+        
+        killCellWithVirus();
+        if (updateWithVirus)
+            addVirus();
 
     }
 
@@ -200,9 +210,8 @@ public class GameOfLife {
             for (int j = 0; j < grid[i].length; j++) {
                 // Create a random number 1-0 and input into array
                 grid[i][j] = (int) Math.floor(Math.random() * 2);
-//                if (grid[i][j] == 1) {
-//                    addVirus(i, j);
-//                }
+                if (grid[i][j] == 1 && updateWithVirus)
+                    updateVirus(i, j);
             }
         }
     }
@@ -225,12 +234,45 @@ public class GameOfLife {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 1) {
                     g.setColor(c);
-                    g.fillRect(i * tileSize, j * tileSize, tileSize, tileSize); 
+                    g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
                 }
 
             }
         }
 
+    }
+    
+    public void drawVirusGrid(Graphics g) {
+        
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (diseasedCells[i][j] == 1) {
+                    g.setColor(Color.yellow);
+                    g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
+                }
+                if (diseasedCells[i][j] == 2) {
+                    g.setColor(Color.orange);
+                    g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
+                }
+                if (diseasedCells[i][j] == 3) {
+                    g.setColor(Color.red);
+                    g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
+                }
+
+            }
+        }
+
+    }
+    
+    public void clearVirus() {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (diseasedCells[i][j] != 0) {
+                    diseasedCells[i][j] = 0;
+                }
+
+            }
+        }
     }
     
     public void updateIndividualCell(int x, int y) {
@@ -257,7 +299,7 @@ public class GameOfLife {
         }
     }
 
-    private void addVirus(int r, int c) {
+    private void updateVirus(int r, int c) {
 
         // Generate a random number 0-99
         int virus = (int) Math.floor(Math.random() * 100);
@@ -273,6 +315,17 @@ public class GameOfLife {
         // If the number is 2 the type of virus is a level 3 virus
         if (virus == 2) {
             diseasedCells[r][c] = 3;
+        }
+    }
+    
+    private void addVirus() {
+        for (int r = 0; r < grid.length; r++) {
+            // For each column
+            for (int c = 0; c < grid[r].length; c++) {
+                if (grid[r][c] == 1) {
+                    updateVirus(r, c);
+                }
+            }
         }
     }
 
@@ -384,5 +437,13 @@ public class GameOfLife {
 
     public int[][] getDiseasedCells() {
         return diseasedCells;
+    }
+    
+    public boolean isUpdateWithVirus() {
+        return updateWithVirus;
+    }
+
+    public void setUpdateWithVirus(boolean updateWithVirus) {
+        this.updateWithVirus = updateWithVirus;
     }
 }

@@ -104,7 +104,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Modifications&#xa;- Cells have a 3% chance of catching a virus upon creation&#xa;- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus&#xa;- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  &#xa;   A level 3 virus also has a 50% kill chance and a 10% fade chance&#xa;- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. &#xa;  A level 2 virus also has a 40% kill chance with a 20% fade chance&#xa;- A level 1 virus cannot infect neighbouring cells. &#xa;  A level 1 virus has a 30% kill chance and a 20% fade chance. &#xa;  If a cell dies the virus will go away."/>
+            <Property name="text" type="java.lang.String" value="Modifications&#xa;- Cells have a 3% chance of catching a virus upon every update&#xa;- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus&#xa;- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  &#xa;   A level 3 virus also has a 50% kill chance and a 10% fade chance&#xa;- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. &#xa;  A level 2 virus also has a 40% kill chance with a 20% fade chance&#xa;- A level 1 virus cannot infect neighbouring cells. &#xa;  A level 1 virus has a 30% kill chance and a 20% fade chance. &#xa;  If a cell dies the virus will go away."/>
           </Properties>
         </Component>
       </SubComponents>
@@ -120,7 +120,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Buttons&#xa;Random - Randomly creates a grid&#xa;Clear - Clears grid&#xa;Update once - Only updates once&#xa;Start - Starts the simulation&#xa;Tick Speed Slider - Updates tick speed of simulation&#xa;Color - Updates Color of Simulation"/>
+            <Property name="text" type="java.lang.String" value="Buttons&#xa;Random - Randomly creates a grid&#xa;Clear - Clears grid&#xa;Update once - Only updates once&#xa;Start - Starts the simulation&#xa;Tick Speed Slider - Updates tick speed of simulation&#xa;Show Virus - Shows virus&#xa;Enabel virus - Enables Virus&#xa;Color - Updates Color of Simulation"/>
           </Properties>
         </Component>
       </SubComponents>
