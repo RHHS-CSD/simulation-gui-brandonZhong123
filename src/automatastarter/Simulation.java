@@ -32,7 +32,11 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
     private boolean showVirus;
 
     private GameOfLife simulation = new GameOfLife(0, 0, 600, 1200, 10);
-
+    
+    /**
+     * Constructor starts game loop and initializes components on the panel
+     * @param p used to switch between different panels
+     */
     public Simulation(CardSwitcher p) {
         initComponents();
         t = new Timer(tickSpeed, this);
@@ -40,7 +44,10 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         switcher = p;
  
     }
-    
+    /**
+     * This method paints stuff to the screen
+     * @param g used to paint stuff
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         simulation.drawGrid(g, color);
@@ -49,10 +56,18 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         drawBorder(g);
     }
     
+    /**
+     * This method draws the virus
+     * @param g used to draw stuff
+     */
     public void drawVirus(Graphics g) {
         if (showVirus)
             simulation.drawVirusGrid(g);
     }
+    /**
+     * This method draws the border
+     * @param g used to draw stuff
+     */
     public void drawBorder(Graphics g) {
         g.setColor(Color.BLACK);
         g.drawLine(0, 0, 1200, 0);
@@ -61,6 +76,9 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         g.drawLine(1200, 0, 1200, 600);
     }
     
+    /**
+     * This method updates the panel
+     */
     public void update() {
         if (start)
             simulation.update();
@@ -86,7 +104,10 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         showVirusButton = new javax.swing.JToggleButton();
         Random1 = new javax.swing.JButton();
         infoButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
+        setDoubleBuffered(false);
         setPreferredSize(new java.awt.Dimension(1200, 600));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -168,43 +189,49 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        jLabel2.setText("Dead Cells: 0");
+
+        jLabel3.setText("Alive Cells: 0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(infoButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(backButton)
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(showVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Random1)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(changeDayButton)
-                .addGap(18, 18, 18)
-                .addComponent(startStopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Clear)
+                .addGap(18, 18, 18)
+                .addComponent(startStopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tickSpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tickSpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(tickSpeedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)))
+                        .addGap(24, 24, 24)
+                        .addComponent(tickSpeedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(colorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(528, Short.MAX_VALUE)
+                .addContainerGap(542, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Clear)
@@ -216,28 +243,34 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
                         .addComponent(infoButton)
                         .addComponent(startStopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(colorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(colorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(tickSpeedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tickSpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tickSpeedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tickSpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(2, 2, 2)))
-                .addGap(22, 22, 22))
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)))
+                        .addGap(4, 4, 4)))
+                .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
+        // Get x and y position of click
         int mouseX = evt.getX();
         int mouseY = evt.getY();
+        // Update indivudal cell if simulation is not running
         if (!start) {
             simulation.updateIndividualCell(mouseX, mouseY);
         }
     }//GEN-LAST:event_formMouseClicked
 
     private void startStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopButtonActionPerformed
-        // TODO add your handling code here:
+
         if (!start) {
             start = true;
             startStopButton.setText("Stop");
@@ -346,6 +379,8 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
     private javax.swing.JButton colorButton;
     private javax.swing.JToggleButton enableVirusButton;
     private javax.swing.JButton infoButton;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JToggleButton showVirusButton;
     private javax.swing.JToggleButton startStopButton;
     private javax.swing.JLabel tickSpeedLabel;
