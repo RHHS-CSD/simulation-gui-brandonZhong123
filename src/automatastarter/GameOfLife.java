@@ -25,9 +25,12 @@ public class GameOfLife {
     private boolean updateWithVirus = false;
     
     /**
-     * Constructor initializes size of grid
-     * @param length length of grid
-     * @param width width of grid
+     * 
+     * @param x
+     * @param y
+     * @param height
+     * @param width
+     * @param tileSize 
      */
     public GameOfLife (int x, int y, int height, int width, int tileSize){
         this.width = width;
