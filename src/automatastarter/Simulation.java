@@ -1,5 +1,8 @@
 package automatastarter;
 
+import automatastarter.GameOfLife;
+import automatastarter.InfoPanel;
+import automatastarter.IntroPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -308,12 +311,13 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(backButton)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Random1)
-                                        .addComponent(infoButton)
-                                        .addComponent(Clear))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(backButton)
+                                            .addComponent(Random1)
+                                            .addComponent(infoButton)
+                                            .addComponent(Clear)))
                                     .addComponent(tickSpeedLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
