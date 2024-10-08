@@ -19,10 +19,13 @@ import javax.swing.Timer;
  * @author michael.roy-diclemen
  */
 public class IntroPanel extends javax.swing.JPanel implements ActionListener{
-        public static final String CARD_NAME = "intro";
+    public static final String CARD_NAME = "intro";
     CardSwitcher switcher = null;
-    GameOfLife simulation = new GameOfLife(0, 0, 720, 300, 5);
-    GameOfLife simulation2 = new GameOfLife(900, 0, 720, 300, 5);
+    private GameOfLife simulation = new GameOfLife(0, 0, 650, 300, 5);
+    private GameOfLife simulation2 = new GameOfLife(900, 0, 650, 300, 5);
+    private GameOfLife simulation3 = new GameOfLife(300, 470, 200, 600, 5);
+    private GameOfLife simulation4 = new GameOfLife(300, 0, 120, 600, 5);
+    
     /**
      * Creates new form IntroPanel
      */
@@ -34,18 +37,25 @@ public class IntroPanel extends javax.swing.JPanel implements ActionListener{
         t.start();
         simulation.createGrid();
         simulation2.createGrid();
+        simulation3.createGrid();
+        simulation4.createGrid();
     }
     
     private void update(){
         simulation.update();
         simulation2.update();
+        simulation3.update();
+        simulation4.update();
     }
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        simulation.drawGrid(g, Color.black);
+        simulation.drawGrid(g, Color.black);      
         simulation2.drawGrid(g, Color.black);
+        simulation3.drawGrid(g, Color.black);
+        simulation4.drawGrid(g, Color.black);
+        
     
     }
 
