@@ -24,10 +24,14 @@ public class GameOfLife {
     private int gridY;
     private boolean updateWithVirus = false;
     
+
     /**
-     * Constructor initializes size of grid
-     * @param length length of grid
-     * @param width width of grid
+     * Constructor initializes the size and position of the grid simulation
+     * @param x x position of the grid
+     * @param y y position of the grid
+     * @param height height of the grid
+     * @param width width of the grid
+     * @param tileSize size of each tile
      */
     public GameOfLife (int x, int y, int height, int width, int tileSize){
         this.width = width;
@@ -201,7 +205,10 @@ public class GameOfLife {
             addVirus();
 
     }
-
+    
+    /**
+     * This method creates a grid randomly with 1s and 0s
+     */
     public void createGrid() {
 
         // For each row
@@ -210,12 +217,17 @@ public class GameOfLife {
             for (int j = 0; j < grid[i].length; j++) {
                 // Create a random number 1-0 and input into array
                 grid[i][j] = (int) Math.floor(Math.random() * 2);
+                // If grid should be created with virus
                 if (grid[i][j] == 1 && updateWithVirus)
                     updateVirus(i, j);
             }
         }
     }
-
+    
+    /**
+     * This method draws the grid lines
+     * @param g used to draw to the screen
+     */
     public void drawGridLines(Graphics g) {
         
         g.setColor(Color.GRAY);
@@ -228,6 +240,11 @@ public class GameOfLife {
         }
     }
     
+    /**
+     * This method draws the individual grid cells
+     * @param g used to draw to the screen
+     * @param c used to use the color
+     */
     public void drawGrid(Graphics g, Color c) {
         
         for (int i = 0; i < grid.length; i++) {
@@ -242,18 +259,30 @@ public class GameOfLife {
 
     }
     
+    /**
+     * This method draws different colored cells based on the virus a cell might have
+     * A level 1 virus is drawn using yellow colred cells
+     * A level 2 virus is drawn using orange colored cells
+     * A level 3 virus is drawing using red colored cells
+     * @param g 
+     */
     public void drawVirusGrid(Graphics g) {
         
+        // For each row
         for (int i = 0; i < grid.length; i++) {
+            // For each col
             for (int j = 0; j < grid[i].length; j++) {
+                // If cell is a level 1 virus draw yellow cell
                 if (diseasedCells[i][j] == 1) {
                     g.setColor(Color.yellow);
                     g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
                 }
+                // If cell is a level 2 virus draw a orange cell
                 if (diseasedCells[i][j] == 2) {
                     g.setColor(Color.orange);
                     g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
                 }
+                // If virus is a level 3 virus draw a red cell
                 if (diseasedCells[i][j] == 3) {
                     g.setColor(Color.red);
                     g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
@@ -264,6 +293,9 @@ public class GameOfLife {
 
     }
     
+    /**
+     * This method clears all the viruses in each cell
+     */
     public void clearVirus() {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -274,12 +306,19 @@ public class GameOfLife {
             }
         }
     }
-    
+    /**
+     * This method updates an individual cell 
+     * @param x x position of cell to be updated
+     * @param y y position of cell to be updated
+     */
     public void updateIndividualCell(int x, int y) {
         
+        // Find coresponding row and col based on x and y position of click
         int r = x / tileSize;
         int c = y / tileSize;
+        // If within bounds of grid
         if (!(r < 0 || r > grid.length - 1 || c < 0 || c > grid[0].length - 1)) {
+            // Change to opposite cell 
             if (grid[r][c] == 0) {
                 grid[r][c] = 1;
             }
@@ -290,6 +329,9 @@ public class GameOfLife {
         
     }
     
+    /**
+     * This method clears all the cells in the grid
+     */
     public void clearGrid () {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++ ){ 
