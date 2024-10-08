@@ -17,45 +17,47 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="backButton" min="-2" pref="101" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="245" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="353" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="334" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="693" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="350" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Component id="backButton" min="-2" pref="101" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="471" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="422" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="248" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane3" min="-2" pref="707" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="backButton" min="-2" pref="41" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="87" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" pref="98" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="backButton" min="-2" pref="41" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="87" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="230" max="-2" attributes="0"/>
-              <EmptySpace pref="74" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane2" min="-2" pref="272" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane3" min="-2" pref="370" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="307" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,7 +106,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Modifications&#xa;- Cells have a 3% chance of catching a virus upon every update&#xa;- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus&#xa;- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  &#xa;   A level 3 virus also has a 50% kill chance and a 10% fade chance&#xa;- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. &#xa;  A level 2 virus also has a 40% kill chance with a 20% fade chance&#xa;- A level 1 virus cannot infect neighbouring cells. &#xa;  A level 1 virus has a 30% kill chance and a 20% fade chance. &#xa;  If a cell dies the virus will go away."/>
+            <Property name="text" type="java.lang.String" value="&#xa;Buttons&#xa;Random - Randomly creates a grid&#xa;Clear - Clears grid&#xa;Update once - Only updates once&#xa;Start - Starts the simulation&#xa;Tick Speed Slider - Updates tick speed of simulation&#xa;Show Virus - Shows virus&#xa;Enable  virus - Enables Virus&#xa;Color - Updates Color of Simulation&#xa;Enable Grid Lines - Displays grid lines (Do not turn on for 1200x600)&#xa;Pattern Dropdown - Loads different patterns (Infinite Shooter, Hammer Head&#xa;Cloverleaf, canoe )&#xa;Dimensions Dropdown - Changes the dimensions of grid (Will overwrite &#xa;any files)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -120,7 +122,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Buttons&#xa;Random - Randomly creates a grid&#xa;Clear - Clears grid&#xa;Update once - Only updates once&#xa;Start - Starts the simulation&#xa;Tick Speed Slider - Updates tick speed of simulation&#xa;Show Virus - Shows virus&#xa;Enabel virus - Enables Virus&#xa;Color - Updates Color of Simulation"/>
+            <Property name="text" type="java.lang.String" value="Modifications&#xa;- Cells have a 3% chance of catching a virus upon every update&#xa;- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus&#xa;- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  &#xa;   A level 3 virus also has a 50% kill chance and a 10% fade chance&#xa;- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. &#xa;  A level 2 virus also has a 40% kill chance with a 20% fade chance&#xa;- A level 1 virus cannot infect neighbouring cells. &#xa;  A level 1 virus has a 30% kill chance and a 20% fade chance. &#xa;  If a cell dies the virus will go away.&#xa;&#xa;Common Patterns:&#xa;&#xa;Infinite Shooter: Loads an cluster of cells on the top left of the screen that will infinitely spawn moving oscilators&#xa;Hammer Head: Loads a cluster of cells on the top right of the screen that moves along the screen&#xa;Cloverleaf: Loads a oscilating pattern&#xa;Canoe: Loads a stuck pattern&#xa;&#xa;Note: Would not recommmend changing color to yellow, orange or red as it will conflcit with the virus colors"/>
           </Properties>
         </Component>
       </SubComponents>

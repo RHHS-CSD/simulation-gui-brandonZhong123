@@ -59,12 +59,12 @@ public class InfoPanel extends javax.swing.JPanel {
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
-        jTextArea2.setText("Modifications\n- Cells have a 3% chance of catching a virus upon every update\n- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus\n- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  \n   A level 3 virus also has a 50% kill chance and a 10% fade chance\n- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. \n  A level 2 virus also has a 40% kill chance with a 20% fade chance\n- A level 1 virus cannot infect neighbouring cells. \n  A level 1 virus has a 30% kill chance and a 20% fade chance. \n  If a cell dies the virus will go away.");
+        jTextArea2.setText("\nButtons\nRandom - Randomly creates a grid\nClear - Clears grid\nUpdate once - Only updates once\nStart - Starts the simulation\nTick Speed Slider - Updates tick speed of simulation\nShow Virus - Shows virus\nEnable  virus - Enables Virus\nColor - Updates Color of Simulation\nEnable Grid Lines - Displays grid lines (Do not turn on for 1200x600)\nPattern Dropdown - Loads different patterns (Infinite Shooter, Hammer Head\nCloverleaf, canoe )\nDimensions Dropdown - Changes the dimensions of grid (Will overwrite \nany files)");
         jScrollPane2.setViewportView(jTextArea2);
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
-        jTextArea3.setText("Buttons\nRandom - Randomly creates a grid\nClear - Clears grid\nUpdate once - Only updates once\nStart - Starts the simulation\nTick Speed Slider - Updates tick speed of simulation\nShow Virus - Shows virus\nEnabel virus - Enables Virus\nColor - Updates Color of Simulation");
+        jTextArea3.setText("Modifications\n- Cells have a 3% chance of catching a virus upon every update\n- Theres a 1% chance that a cell catches a level 1 virus level 2 virus and level 3 virus\n- A level 3 virus has a 40% chance of infecting neighbouring cells and can either infect its neighbours with a level 2 or level 3 virus.  \n   A level 3 virus also has a 50% kill chance and a 10% fade chance\n- A level 2 virus has a 50% chance of infecting neighbouring cells and can only infect other cells with a level 1 virus. \n  A level 2 virus also has a 40% kill chance with a 20% fade chance\n- A level 1 virus cannot infect neighbouring cells. \n  A level 1 virus has a 30% kill chance and a 20% fade chance. \n  If a cell dies the virus will go away.\n\nCommon Patterns:\n\nInfinite Shooter: Loads an cluster of cells on the top left of the screen that will infinitely spawn moving oscilators\nHammer Head: Loads a cluster of cells on the top right of the screen that moves along the screen\nCloverleaf: Loads a oscilating pattern\nCanoe: Loads a stuck pattern\n\nNote: Would not recommmend changing color to yellow, orange or red as it will conflcit with the virus colors");
         jScrollPane3.setViewportView(jTextArea3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -72,37 +72,38 @@ public class InfoPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(247, 247, 247)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(350, 350, 350)
-                        .addComponent(jLabel1)))
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(226, 226, 226)
+                .addComponent(jLabel1)
+                .addContainerGap(471, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

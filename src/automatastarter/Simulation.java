@@ -19,52 +19,85 @@ import utils.CardSwitcher;
  */
 public class Simulation extends javax.swing.JPanel implements ActionListener {
     
+    // Constants
     public static final String CARD_NAME = "simulation";
+    private final int width = 1200;
+    private final int height = 600;
     CardSwitcher switcher = null;
-    /**
-     * Creates new form Simulation
-     */
-    
+    // Variables
     private boolean start = false;
     private int tickSpeed = 50;
     private Color color;
     private Timer t;
     private boolean showVirus;
+    private int tileSize = 30;
+    private boolean showGridLines;
 
-    private GameOfLife simulation = new GameOfLife(0, 0, 600, 1200, 10);
-
+    private GameOfLife simulation;
+    
+    /**
+     * Constructor initializes components on simulation panel
+     * @param p used for switching between cards
+     */
     public Simulation(CardSwitcher p) {
         initComponents();
         t = new Timer(tickSpeed, this);
         t.start();
+        simulation = new GameOfLife(0, 0, height, width, tileSize);
         switcher = p;
  
     }
     
+    /** 
+     * This method paints stuff to the screen
+     * @param g used to draw
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         simulation.drawGrid(g, color);
-        //simulation.drawGridLines(g);
+        drawGridLines(g);
         drawVirus(g);
         drawBorder(g);
     }
     
-    public void drawVirus(Graphics g) {
+    // Used to draw virus cells
+    private void drawVirus(Graphics g) {
         if (showVirus)
             simulation.drawVirusGrid(g);
     }
-    public void drawBorder(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.drawLine(0, 0, 1200, 0);
-        g.drawLine(0, 600, 1200, 600);
-        g.drawLine(0, 0, 0, 600);
-        g.drawLine(1200, 0, 1200, 600);
+    
+    // Used to draw grid lines
+    private void drawGridLines(Graphics g) {
+        if (showGridLines)
+            simulation.drawGridLines(g);
     }
     
-    public void update() {
+    // Used to draw border
+    private void drawBorder(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.drawLine(0, 0, width, 0);
+        g.drawLine(0, height, width, height);
+        g.drawLine(0, 0, 0, height);
+        g.drawLine(width, 0, width, height);
+    }
+    
+    // Used to update simulation
+    private void update() {
         if (start)
             simulation.update();
+        updateTextLabels();
     }
+    
+    // Used to set labels for cell info
+    private void updateTextLabels() {
+        int[] cellInfo = simulation.findCellInfo();
+        aliveCellLabel.setText("Alive Cells: " + Integer.toString(cellInfo[0]));
+        deadCellLabel.setText("Dead Cells: " + Integer.toString(cellInfo[1]));
+        levelOneVirusLabel.setText("Level One Virus: " + Integer.toString(cellInfo[2]));
+        levelTwoVirusLabel.setText("Level Two Virus: " + Integer.toString(cellInfo[3]));
+        levelThreeVirusLabel.setText("Level Three Virus: " +Integer.toString(cellInfo[4]));
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,6 +108,7 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         startStopButton = new javax.swing.JToggleButton();
         changeDayButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
@@ -86,6 +120,16 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         showVirusButton = new javax.swing.JToggleButton();
         Random1 = new javax.swing.JButton();
         infoButton = new javax.swing.JButton();
+        aliveCellLabel = new javax.swing.JLabel();
+        deadCellLabel = new javax.swing.JLabel();
+        levelOneVirusLabel = new javax.swing.JLabel();
+        levelTwoVirusLabel = new javax.swing.JLabel();
+        levelThreeVirusLabel = new javax.swing.JLabel();
+        commonPatternsComboBox = new javax.swing.JComboBox<>();
+        dimensionComboBox = new javax.swing.JComboBox<>();
+        enableGridLinesButton = new javax.swing.JToggleButton();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setPreferredSize(new java.awt.Dimension(1200, 600));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,93 +212,170 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        aliveCellLabel.setText("Alive Cells: 0");
+
+        deadCellLabel.setText("Dead Cells: 0");
+
+        levelOneVirusLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        levelOneVirusLabel.setText("Level 1 Viruses: 0");
+
+        levelTwoVirusLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        levelTwoVirusLabel.setText("Level 2 Viruses: 0");
+
+        levelThreeVirusLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        levelThreeVirusLabel.setText("Level 3 Viruses: 0");
+
+        commonPatternsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No Pattern", "Infinite Shooter", "Canoe", "Cloverleaf", "Hammerhead" }));
+        commonPatternsComboBox.setToolTipText("");
+        commonPatternsComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commonPatternsComboBoxActionPerformed(evt);
+            }
+        });
+
+        dimensionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "40x20", "48x24", "50x25", "60x30", "80x40", "100x50", "120x60", "150x75", "200x100", "240x120", "300x150", "400x200", "600x300", "1200x600" }));
+        dimensionComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dimensionComboBoxActionPerformed(evt);
+            }
+        });
+
+        enableGridLinesButton.setText("Enable Grid Lines");
+        enableGridLinesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enableGridLinesButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(infoButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(backButton)
-                .addGap(26, 26, 26)
-                .addComponent(showVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Random1)
-                .addGap(29, 29, 29)
-                .addComponent(changeDayButton)
-                .addGap(18, 18, 18)
-                .addComponent(startStopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Clear)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(showVirusButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(changeDayButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(enableGridLinesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tickSpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Random1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Clear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tickSpeedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)))
+                        .addGap(23, 23, 23)))
+                .addComponent(startStopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(colorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(commonPatternsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dimensionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(aliveCellLabel)
+                    .addComponent(deadCellLabel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(levelTwoVirusLabel)
+                            .addComponent(levelThreeVirusLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(levelOneVirusLabel)))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(528, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Clear)
-                        .addComponent(backButton)
-                        .addComponent(changeDayButton)
-                        .addComponent(enableVirusButton)
-                        .addComponent(showVirusButton)
-                        .addComponent(Random1)
-                        .addComponent(infoButton)
-                        .addComponent(startStopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 537, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(colorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tickSpeedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(backButton)
+                                        .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Random1)
+                                        .addComponent(infoButton)
+                                        .addComponent(Clear))
+                                    .addComponent(tickSpeedLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tickSpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(2, 2, 2)))
-                .addGap(22, 22, 22))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(showVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(changeDayButton)
+                                    .addComponent(enableGridLinesButton)
+                                    .addComponent(tickSpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(startStopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(colorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(levelOneVirusLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(levelTwoVirusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(levelThreeVirusLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(commonPatternsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aliveCellLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(dimensionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(deadCellLabel))))
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
+        // Get x position of mouse click
         int mouseX = evt.getX();
         int mouseY = evt.getY();
+        // Only update cell if simmulation isn't running
         if (!start) {
             simulation.updateIndividualCell(mouseX, mouseY);
         }
     }//GEN-LAST:event_formMouseClicked
 
     private void startStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopButtonActionPerformed
-        // TODO add your handling code here:
+        // If simulation is not started start simulation
         if (!start) {
             start = true;
             startStopButton.setText("Stop");
         }
+        // Else stop simulation
         else if (start) {
             start = false;
             startStopButton.setText("Start");
         }
     }//GEN-LAST:event_startStopButtonActionPerformed
-
+    // Used to update day only by one
     private void changeDayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeDayButtonActionPerformed
         // TODO add your handling code here:
         simulation.update();
     }//GEN-LAST:event_changeDayButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
+
         switcher.switchToCard(IntroPanel.CARD_NAME);
     }//GEN-LAST:event_backButtonActionPerformed
 
@@ -262,19 +383,18 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         // TODO add your handling code here:
         simulation.clearGrid();
     }//GEN-LAST:event_ClearActionPerformed
-
+    // Used to set tick speed
     private void tickSpeedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tickSpeedSliderStateChanged
-        // TODO add your handling code here:
+
         tickSpeed = tickSpeedSlider.getValue(); 
         tickSpeedLabel.setText("Tick Speed: " + tickSpeed + "ms");
         t.setDelay(tickSpeed);
     }//GEN-LAST:event_tickSpeedSliderStateChanged
-
+    // Used to change color of cell
     private void colorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorButtonActionPerformed
-        // TODO add your handling code here:
         
+        // Change color
         color = Color.BLACK;
-        
         color = JColorChooser.showDialog(this, "Select A colour", color);
         
         // If no color is selected
@@ -285,22 +405,24 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         colorButton.setBackground(color);
         
     }//GEN-LAST:event_colorButtonActionPerformed
-
+    // Used to enable virus
     private void enableVirusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableVirusButtonActionPerformed
-        // TODO add your handling code here:
+        // If simulation is updating with virus, disable 
         if (simulation.isUpdateWithVirus())  {
             simulation.setUpdateWithVirus(false);
             enableVirusButton.setText("Enable Virus");
         }
+        // If simulation is not, enable
         else {
             simulation.setUpdateWithVirus(true);
             enableVirusButton.setText("Disable Virus");
         }
 
     }//GEN-LAST:event_enableVirusButtonActionPerformed
-
+    
+    // Used to show virus
     private void showVirusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showVirusButtonActionPerformed
-        // TODO add your handling code here:
+        // If button is pressed and virus is enabled, disable virus
         if (showVirus) {
             showVirus = false;
             showVirusButton.setText("Show Virus");
@@ -310,19 +432,205 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
             showVirusButton.setText("Hide Virus");
         }
         
+        
     }//GEN-LAST:event_showVirusButtonActionPerformed
 
     private void Random1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Random1ActionPerformed
-        // TODO add your handling code here:
+
         simulation.clearVirus();
         simulation.createGrid();
     }//GEN-LAST:event_Random1ActionPerformed
 
     private void infoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoButtonActionPerformed
-        // TODO add your handling code here:
+
         switcher.switchToCard(InfoPanel.CARD_NAME);
     }//GEN-LAST:event_infoButtonActionPerformed
 
+    private void commonPatternsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonPatternsComboBoxActionPerformed
+        loadCommonPatterns((String) commonPatternsComboBox.getSelectedItem());
+    }//GEN-LAST:event_commonPatternsComboBoxActionPerformed
+
+    private void dimensionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dimensionComboBoxActionPerformed
+        // TODO add your handling code here:
+        loadDimension((String) dimensionComboBox.getSelectedItem());
+    }//GEN-LAST:event_dimensionComboBoxActionPerformed
+
+    private void enableGridLinesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableGridLinesButtonActionPerformed
+        // If grid line button is pressed and grid lines are enabled
+        if (showGridLines) {
+            showGridLines = false;
+            enableGridLinesButton.setText("Enable Grid Lines");
+        }
+        else {
+            showGridLines = true;
+            enableGridLinesButton.setText("Disable Grid Lines");
+        }
+    }//GEN-LAST:event_enableGridLinesButtonActionPerformed
+    private void loadCommonPatterns(String s) {
+        simulation.clearGrid();
+        // Switch statement that loads each pattern based on case
+        switch(s) {
+            case "Infinite Shooter":
+                loadInfiniteShooter();
+                break;
+            case "Hammerhead":
+                loadHammerHead();
+                break;
+            case "Canoe":
+                loadCanoe();
+                break;
+            case "Cloverleaf":
+                loadCloverLeaf();
+                break; 
+        }
+    }
+    
+    private void loadDimension(String s) {
+        // Switch statement to change grid size based on case
+        switch (s) {
+            case "1200x600":
+                tileSize = 1; // Set tileSize based on the dimension
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "1200tx300":
+                tileSize = 2;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "400x200":
+                tileSize = 3;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "300x150":
+                tileSize = 4;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "240x120":
+                tileSize = 5;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "200x100":
+                tileSize = 6;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "150x75":
+                tileSize = 8;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "120x60":
+                tileSize = 10;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "100x50":
+                tileSize = 12;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "80x40":
+                tileSize = 15;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "60x30":
+                tileSize = 20;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "50x25":
+                tileSize = 24;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "48x24":
+                tileSize = 25;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            case "40x20":
+                tileSize = 30;
+                simulation = new GameOfLife(0, 0, height, width, tileSize);
+                break;
+            default:
+                tileSize = -1; // Set to an invalid value if no case matches
+                simulation.setTileSize(tileSize); // Optionally update tileSize in the simulation
+                break;
+        }
+    }
+    // Load infinite shooter based on coordinates
+    private void loadInfiniteShooter () {
+        int[][] coordinates = {
+            {1, 8}, {1, 9}, {2, 8}, {2, 9}, {11, 8}, {11, 9}, {11, 10},
+            {12, 7}, {12, 11}, {13, 6}, {13, 12}, {14, 6}, {14, 12},
+            {15, 9}, {16, 7}, {16, 11}, {17, 8}, {17, 9}, {17, 10},
+            {18, 9}, {21, 6}, {21, 7}, {21, 8}, {22, 6}, {22, 7},
+            {22, 8}, {23, 5}, {23, 9}, {25, 4}, {25, 5}, {25, 9},
+            {25, 10}, {35, 6}, {35, 7}, {36, 6}, {36, 7}
+        };
+        
+        for (int[] coord : coordinates) {
+            simulation.setCellState(coord[0], coord[1], 1);  // Assuming setCellState method exists
+        }
+    }
+    // Load hammerhead pattern based on coordinates
+    private void loadHammerHead() {
+        
+        int[][] coordinates = {
+            {1, 1}, {1, 2}, {1, 3}, {1, 14}, {1, 15}, {1, 16},
+            {2, 1}, {2, 4}, {2, 13}, {2, 16}, {3, 1}, {3, 16},
+            {4, 1}, {4, 5}, {4, 12}, {4, 16}, {5, 1}, {5, 5},
+            {5, 12}, {5, 16}, {6, 2}, {6, 6}, {6, 11}, {6, 15},
+            {7, 7}, {7, 10}, {8, 8}, {8, 9}, {9, 5}, {9, 7},
+            {9, 10}, {9, 12}, {10, 5}, {10, 12}, {11, 6}, {11, 7},
+            {11, 10}, {11, 11}, {12, 4}, {12, 5}, {12, 12}, {12, 13},
+            {13, 3}, {13, 4}, {13, 5}, {13, 7}, {13, 10}, {13, 12},
+            {13, 13}, {13, 14}, {14, 2}, {14, 3}, {14, 6}, {14, 11},
+            {14, 14}, {14, 15}, {15, 2}, {15, 4}, {15, 13}, {15, 15},
+            {16, 3}, {16, 4}, {16, 5}, {16, 12}, {16, 13}, {16, 14},
+            {17, 3}, {17, 4}, {17, 5}, {17, 12}, {17, 13}, {17, 14},
+            {18, 3}, {18, 4}, {18, 13}, {18, 14}
+        };
+
+        // For each row 
+        for (int i = 0; i < coordinates.length; i++) {
+            // Set each coordinate to the 20 less than the width of the screen
+            coordinates[i][0] = coordinates[i][0] + (width / tileSize) - 20;
+        }
+        for (int[] coord : coordinates) {
+            simulation.setCellState(coord[0], coord[1], 1);  
+        }
+    }
+    
+    // Load canoe pattern based on coordinates
+    private void loadCanoe() {
+        int[][] coordinates = {
+            {9, 9}, {9, 10}, {10, 10}, {11, 9}, 
+            {12, 6}, {12, 8}, {13, 6}, {13, 7}
+        };
+
+        for (int[] coord : coordinates) {
+            simulation.setCellState(coord[0], coord[1], 1); 
+        }
+    }
+    
+    // Load cloverleaf pattern based on coordinates
+    private void loadCloverLeaf() {
+        int[][] coordinates = {
+            {12, 4}, {12, 5}, {12, 9}, {12, 10},
+            {13, 3}, {13, 6}, {13, 8}, {13, 11},
+            {14, 3}, {14, 5}, {14, 6}, {14, 8},
+            {14, 9}, {14, 11}, {15, 2}, {15, 3},
+            {15, 6}, {15, 8}, {15, 11}, {15, 12},
+            {16, 4}, {16, 5}, {16, 9}, {16, 10},
+            {17, 2}, {17, 3}, {17, 6}, {17, 8},
+            {17, 11}, {17, 12}, {18, 3}, {18, 5},
+            {18, 6}, {18, 8}, {18, 9}, {18, 11},
+            {19, 3}, {19, 6}, {19, 8}, {19, 11},
+            {20, 4}, {20, 5}, {20, 9}, {20, 10}
+        };
+        for (int[] coord : coordinates) {
+            simulation.setCellState(coord[0], coord[1], 1); 
+        }
+    }
+    /**
+     * This method repaints the screen
+     * @param e Used to update screen
+     */
+    
+    // Getters and Setters
     public void actionPerformed(ActionEvent e) {
         repaint();
         update();
@@ -341,11 +649,20 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Clear;
     private javax.swing.JButton Random1;
+    private javax.swing.JLabel aliveCellLabel;
     private javax.swing.JButton backButton;
     private javax.swing.JButton changeDayButton;
     private javax.swing.JButton colorButton;
+    private javax.swing.JComboBox<String> commonPatternsComboBox;
+    private javax.swing.JLabel deadCellLabel;
+    private javax.swing.JComboBox<String> dimensionComboBox;
+    private javax.swing.JToggleButton enableGridLinesButton;
     private javax.swing.JToggleButton enableVirusButton;
     private javax.swing.JButton infoButton;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel levelOneVirusLabel;
+    private javax.swing.JLabel levelThreeVirusLabel;
+    private javax.swing.JLabel levelTwoVirusLabel;
     private javax.swing.JToggleButton showVirusButton;
     private javax.swing.JToggleButton startStopButton;
     private javax.swing.JLabel tickSpeedLabel;

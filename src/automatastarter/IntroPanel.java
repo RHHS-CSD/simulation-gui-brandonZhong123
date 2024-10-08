@@ -21,8 +21,8 @@ import javax.swing.Timer;
 public class IntroPanel extends javax.swing.JPanel implements ActionListener{
         public static final String CARD_NAME = "intro";
     CardSwitcher switcher = null;
-    GameOfLife simulation = new GameOfLife(0, 0, 600, 300, 10);
-    GameOfLife simulation2 = new GameOfLife(900, 0, 600, 300, 10);
+    GameOfLife simulation = new GameOfLife(0, 0, 720, 300, 5);
+    GameOfLife simulation2 = new GameOfLife(900, 0, 720, 300, 5);
     /**
      * Creates new form IntroPanel
      */
@@ -73,7 +73,8 @@ public class IntroPanel extends javax.swing.JPanel implements ActionListener{
             }
         });
 
-        infoButton.setText("I don't know why I'm here");
+        infoButton.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        infoButton.setText("Info");
         infoButton.setToolTipText("");
         infoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

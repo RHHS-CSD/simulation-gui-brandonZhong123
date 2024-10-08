@@ -25,12 +25,12 @@ public class GameOfLife {
     private boolean updateWithVirus = false;
     
     /**
-     * 
-     * @param x
-     * @param y
-     * @param height
-     * @param width
-     * @param tileSize 
+     * Constructor initializes the simulation grid 
+     * @param x x position of grid
+     * @param y y position of grid
+     * @param height height of the grid
+     * @param width width of the grid
+     * @param tileSize tile size of grid
      */
     public GameOfLife (int x, int y, int height, int width, int tileSize){
         this.width = width;
@@ -49,6 +49,34 @@ public class GameOfLife {
     public void update() {
         checkNeighbours();
         updateCell();
+    }
+    
+    /**
+     * This method iterates through the grid and finds information about the grid
+     * @return Array of integers representing cell data like alive cells, dead cells, level 1 viruses etc
+     */
+    public int[] findCellInfo() {
+        int[] cellInfo = new int[5];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    cellInfo[0] += 1;
+                }
+                if (grid[i][j] == 0) {
+                    cellInfo[1] += 1;
+                }
+                if (diseasedCells[i][j] == 1) {
+                    cellInfo[2] += 1;
+                }
+                if (diseasedCells[i][j] == 2) {
+                    cellInfo[3] += 1;
+                }
+                if (diseasedCells[i][j] == 3) {
+                    cellInfo[4] += 1;
+                }
+            }
+        }
+        return cellInfo;
     }
 
     private int determineNeighbours(int row, int col) {
@@ -169,6 +197,7 @@ public class GameOfLife {
         // If a live cell has fewer than 2 or more than 3 neighbours, it dies
         return neighbours < 2 || neighbours > 3;
     }
+   
 
     private void checkNeighbours() {
 
@@ -204,100 +233,127 @@ public class GameOfLife {
             addVirus();
 
     }
-
+    
+    /**
+     * This method creates a random grid of 1s and 0s.
+     * If specified, it adds virus levels to cells that are alive.
+     */
     public void createGrid() {
-
-        // For each row
-        for (int i = 0; i < grid.length; i++) {
-            // For each column
-            for (int j = 0; j < grid[i].length; j++) {
-                // Create a random number 1-0 and input into array
-                grid[i][j] = (int) Math.floor(Math.random() * 2);
+        for (int i = 0; i < grid.length; i++) { // For each row
+            for (int j = 0; j < grid[i].length; j++) { // For each column
+                grid[i][j] = (int) Math.floor(Math.random() * 2); // Create a random number (0 or 1)
+                // If the cell is alive and the grid should be updated with virus
                 if (grid[i][j] == 1 && updateWithVirus)
-                    updateVirus(i, j);
+                    updateVirus(i, j); // Update virus level for this cell
             }
         }
     }
 
+    /**
+     * This method draws the grid lines on the provided Graphics context.
+     * 
+     * @param g The Graphics object used to draw the grid lines
+     */
     public void drawGridLines(Graphics g) {
-        
-        g.setColor(Color.GRAY);
-        for (int i = 0; i <= width ; i += tileSize) {
-            g.drawLine(i, 0, i, height);
+        g.setColor(Color.GRAY); // Set color for grid lines
+        for (int i = 0; i <= width; i += tileSize) {
+            g.drawLine(i, 0, i, height); // Draw vertical grid lines
         }
-        
         for (int i = 0; i <= height; i += tileSize) {
-            g.drawLine(0, i, width , i);
+            g.drawLine(0, i, width, i); // Draw horizontal grid lines
         }
     }
-    
-    public void drawGrid(Graphics g, Color c) {
-        
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                if (grid[i][j] == 1) {
-                    g.setColor(c);
-                    g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
-                }
 
+    /**
+     * This method draws each individual cell in the grid.
+     * 
+     * @param g The Graphics object used to draw the cells
+     * @param c The color used to fill alive cells
+     */
+    public void drawGrid(Graphics g, Color c) {
+        for (int i = 0; i < grid.length; i++) { // For each row
+            for (int j = 0; j < grid[i].length; j++) { // For each column
+                if (grid[i][j] == 1) { // If the cell is alive
+                    g.setColor(c); // Set the color for the cell
+                    g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); // Draw the cell
+                }
             }
         }
-
     }
-    
+
+    /**
+     * This method draws virus levels over the cells if they are infected.
+     * A level 1 virus is drawn in yellow, level 2 in orange, and level 3 in red.
+     * 
+     * @param g The Graphics object used to draw the virus cells
+     */
     public void drawVirusGrid(Graphics g) {
-        
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                if (diseasedCells[i][j] == 1) {
+        for (int i = 0; i < grid.length; i++) { // For each row
+            for (int j = 0; j < grid[i].length; j++) { // For each column
+                if (diseasedCells[i][j] == 1) { // Level 1 virus
                     g.setColor(Color.yellow);
                     g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
-                }
-                if (diseasedCells[i][j] == 2) {
+                } else if (diseasedCells[i][j] == 2) { // Level 2 virus
                     g.setColor(Color.orange);
                     g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
-                }
-                if (diseasedCells[i][j] == 3) {
+                } else if (diseasedCells[i][j] == 3) { // Level 3 virus
                     g.setColor(Color.red);
                     g.fillRect(i * tileSize + gridX, j * tileSize + gridY, tileSize, tileSize); 
                 }
-
             }
         }
-
     }
-    
+
+    /**
+     * This method clears all the virus levels from the grid.
+     */
     public void clearVirus() {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
+        for (int i = 0; i < grid.length; i++) { // For each row
+            for (int j = 0; j < grid[i].length; j++) { // For each column
                 if (diseasedCells[i][j] != 0) {
-                    diseasedCells[i][j] = 0;
+                    diseasedCells[i][j] = 0; // Reset virus level to 0
                 }
+            }
+        }
+    }
 
-            }
-        }
-    }
-    
+    /**
+     * This method updates the state of an individual cell based on its x and y coordinates.
+     * @param x The x-coordinate of the cell
+     * @param y The y-coordinate of the cell
+     */
     public void updateIndividualCell(int x, int y) {
-        
-        int r = x / tileSize;
-        int c = y / tileSize;
-        if (!(r < 0 || r > grid.length - 1 || c < 0 || c > grid[0].length - 1)) {
-            if (grid[r][c] == 0) {
-                grid[r][c] = 1;
-            }
-            else {
-                grid[r][c] = 0;
+        int r = x / tileSize; // Calculate row from y coordinate
+        int c = y / tileSize; // Calculate column from x coordinate
+        if (!(r < 0 || r > grid.length - 1 || c < 0 || c > grid[0].length - 1)) { // Check bounds
+            if (grid[r][c] == 0) { // If the cell is dead
+                setCellState(r, c, 1); // Set cell state to alive
+            } else {
+                setCellState(r, c, 0); // Set cell state to dead
             }
         }
-        
     }
-    
-    public void clearGrid () {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++ ){ 
-                grid[i][j] = 0;
-                cellNeighbours[i][j] = 0;
+
+    /**
+     * This method sets the state of a specific cell in the grid.
+     * @param r The row of the cell
+     * @param c The column of the cell
+     * @param state The state to set (0 for dead, 1 for alive)
+     */
+    public void setCellState(int r, int c, int state) {
+        if (r >= 0 && r < grid.length && c >= 0 && c < grid[r].length) {
+            grid[r][c] = state; // Update the state of the cell
+        }
+    }
+
+    /**
+     * This method clears the entire grid, setting all cells to dead (0).
+     */
+    public void clearGrid() {
+        for (int i = 0; i < grid.length; i++) { // For each row
+            for (int j = 0; j < grid[i].length; j++) { // For each column
+                grid[i][j] = 0; // Clear the cell
+                cellNeighbours[i][j] = 0; // Reset the neighbor count
             }
         }
     }
@@ -418,6 +474,7 @@ public class GameOfLife {
         }
     }
     
+    // Getters and Setters
     public void setGrid(int[][] grid) {
         this.grid = grid;
     }
@@ -449,4 +506,11 @@ public class GameOfLife {
     public void setUpdateWithVirus(boolean updateWithVirus) {
         this.updateWithVirus = updateWithVirus;
     }
+    
+    public int getTileSize() {
+        return tileSize;
+    }
+    public void setTileSize(int tileSize) {
+        this.tileSize = tileSize;
+        }
 }
