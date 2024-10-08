@@ -101,7 +101,6 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
         levelThreeVirusLabel.setText("Level Three Virus: " +Integer.toString(cellInfo[4]));
     }
     
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -300,7 +299,7 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(levelOneVirusLabel)))
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,13 +310,12 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(backButton)
-                                            .addComponent(Random1)
-                                            .addComponent(infoButton)
-                                            .addComponent(Clear)))
+                                    .addComponent(enableVirusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(backButton)
+                                        .addComponent(Random1)
+                                        .addComponent(infoButton)
+                                        .addComponent(Clear))
                                     .addComponent(tickSpeedLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -496,7 +494,7 @@ public class Simulation extends javax.swing.JPanel implements ActionListener {
                 tileSize = 1; // Set tileSize based on the dimension
                 simulation = new GameOfLife(0, 0, height, width, tileSize);
                 break;
-            case "1200tx300":
+            case "600x300":
                 tileSize = 2;
                 simulation = new GameOfLife(0, 0, height, width, tileSize);
                 break;

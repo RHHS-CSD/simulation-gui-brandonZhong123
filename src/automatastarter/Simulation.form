@@ -52,8 +52,8 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="changeDayButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="enableGridLinesButton" min="-2" pref="136" max="-2" attributes="0"/>
@@ -61,7 +61,7 @@
                       <Component id="tickSpeedSlider" min="-2" pref="180" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="enableVirusButton" min="-2" pref="105" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Random1" min="-2" max="-2" attributes="0"/>
@@ -98,7 +98,7 @@
                       <Component id="levelOneVirusLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="193" max="32767" attributes="0"/>
+              <EmptySpace pref="113" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -111,14 +111,12 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="enableVirusButton" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="backButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="Random1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="infoButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="Clear" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Component id="enableVirusButton" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="backButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Random1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="infoButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Clear" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="tickSpeedLabel" alignment="1" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
